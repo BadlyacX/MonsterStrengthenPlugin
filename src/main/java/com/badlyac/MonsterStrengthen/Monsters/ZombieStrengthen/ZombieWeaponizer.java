@@ -19,18 +19,21 @@ public class ZombieWeaponizer {
                 zombie.setCanPickupItems(true);
             } else {
                 ItemStack[] swords = {
-                        new ItemStack(Material.WOOD_SWORD),
+                        new ItemStack(Material.WOODEN_SWORD),
                         new ItemStack(Material.STONE_SWORD),
-                        new ItemStack(Material.GOLD_SWORD),
+                        new ItemStack(Material.GOLDEN_APPLE),
                         new ItemStack(Material.IRON_SWORD),
                         new ItemStack(Material.DIAMOND_SWORD),
+                        new ItemStack(Material.NETHERITE_AXE),
+                        new ItemStack(Material.NETHERITE_SWORD),
+                        new ItemStack(Material.TOTEM_OF_UNDYING),
                         new ItemStack(Material.AIR)
                 };
 
                 ItemStack chosenSword = swords[random.nextInt(swords.length)];
                 equipment.setItemInHand(chosenSword);
             }
-            equipment.setItemInHandDropChance(0.5f);
+            equipment.setItemInHandDropChance(0.25f);
         }
     }
 }
