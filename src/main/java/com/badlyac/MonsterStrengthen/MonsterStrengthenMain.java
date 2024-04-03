@@ -1,5 +1,6 @@
 package com.badlyac.MonsterStrengthen;
 
+import com.badlyac.MonsterStrengthen.ExtraItem.SuperTNT;
 import com.badlyac.MonsterStrengthen.Monsters.Detector;
 import com.badlyac.MonsterStrengthen.Monsters.ZombieStrengthen.BlockBreaker;
 import org.bukkit.Bukkit;
@@ -12,6 +13,7 @@ public class MonsterStrengthenMain extends JavaPlugin {
         instance = this;
         Bukkit.getServer().getPluginManager().registerEvents(new Detector(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new BlockBreaker(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new SuperTNT(this), this);
     }
     public static MonsterStrengthenMain getInstance() {
         return instance;

@@ -1,5 +1,6 @@
 package com.badlyac.MonsterStrengthen.Monsters.ZombieStrengthen;
 
+import com.badlyac.MonsterStrengthen.ExtraItem.SuperTNT;
 import org.bukkit.Material;
 import org.bukkit.entity.Zombie;
 import org.bukkit.inventory.EntityEquipment;
@@ -14,9 +15,9 @@ public class ZombieWeaponizer {
         if (equipment != null) {
             Random random = new Random();
 
-            if (random.nextInt(100) < 20) {
-                equipment.setItemInHand(new ItemStack(Material.BOW));
-                zombie.setCanPickupItems(true);
+            if (random.nextInt(100) < 10) {
+                ItemStack superTNT = SuperTNT.createSuperTNT();
+                equipment.setHelmet(superTNT);
             } else {
                 ItemStack[] swords = {
                         new ItemStack(Material.WOODEN_SWORD),
@@ -31,9 +32,12 @@ public class ZombieWeaponizer {
                 };
 
                 ItemStack chosenSword = swords[random.nextInt(swords.length)];
-                equipment.setItemInHand(chosenSword);
+                equipment.setItemInMainHand(chosenSword);
             }
-            equipment.setItemInHandDropChance(0.25f);
+            equipment.setItemInMainHandDropChance(0.25f);
         }
     }
+
+    // Assuming you have a separate class named SuperTNT that has a method createSuperTNT()
+    // If not, you will need to create this method or class as per the previous instructions.
 }
