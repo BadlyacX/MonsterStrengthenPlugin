@@ -13,10 +13,11 @@ public class Detector implements Listener {
 
     @EventHandler
     public void onEntityTarget(EntityTargetLivingEntityEvent event) {
-        if (event.getTarget() instanceof Player) {
+        if (event.getTarget() != null && event.getTarget() instanceof Player && event.getEntity() instanceof Zombie) {
             Zombie zombie = (Zombie) event.getEntity();
+            Player player = (Player) event.getTarget();
 
-            if (event.getTarget().getLocation().distance(zombie.getLocation()) <= DETECTION_RANGE) {
+            if (player.getLocation().distance(zombie.getLocation()) <= DETECTION_RANGE) {
                 ZombieWeaponizer.equipZombie(zombie);
             }
         }

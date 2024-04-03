@@ -18,9 +18,10 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
 
+
+@SuppressWarnings("ALL")
 public class SuperTNT implements Listener {
     private static JavaPlugin plugin;
-
     private static NamespacedKey superTNTKey;
 
     public SuperTNT(JavaPlugin plugin) {
@@ -45,20 +46,19 @@ public class SuperTNT implements Listener {
         ItemStack item = event.getItem();
         if (item != null && item.hasItemMeta()) {
             ItemMeta meta = item.getItemMeta();
-            if (meta.getPersistentDataContainer().has(superTNTKey, PersistentDataType.INTEGER)) {
+            if (meta != null && meta.getPersistentDataContainer().has(superTNTKey, PersistentDataType.INTEGER)) {
                 event.setCancelled(true);
                 if (item.getAmount() > 1) {
                     item.setAmount(item.getAmount() - 1);
                 } else {
                     player.getInventory().remove(item);
                 }
+                    TNTPrimed tnt = player.getWorld().spawn(player.getLocation(), TNTPrimed.class);
+                    tnt.setFuseTicks(10 * 20);
+                    tnt.setYield(20);
 
-                TNTPrimed tnt = player.getWorld().spawn(player.getLocation(), TNTPrimed.class);
-                tnt.setFuseTicks(10 * 20);
-                tnt.setYield(20);
-
-                Vector direction = player.getLocation().getDirection().multiply(4);
-                tnt.setVelocity(direction);
+                    Vector direction = player.getLocation().getDirection().multiply(4);
+                    tnt.setVelocity(direction);
             }
         }
     }
@@ -69,12 +69,15 @@ public class SuperTNT implements Listener {
             ItemStack helmet = entity.getEquipment().getHelmet();
             if (helmet.hasItemMeta()) {
                 ItemMeta meta = helmet.getItemMeta();
-                if (meta.getPersistentDataContainer().has(superTNTKey, PersistentDataType.INTEGER)) {
+                if (meta != null && meta.getPersistentDataContainer().has(superTNTKey, PersistentDataType.INTEGER)) {
                     TNTPrimed mainTnt = spawnTNT(entity.getLocation(), 5, 5 * 20);
-
+                    if (mainTnt != null) {
+                    }
                     for (int i = 0; i < 2; i++) {
                         TNTPrimed smallTnt = spawnTNT(entity.getLocation(), 3, 3 * 20);
-                        smallTnt.setVelocity(entity.getLocation().getDirection().multiply(0.5).add(new Vector(Math.random() - 0.5, Math.random() * 0.75, Math.random() - 0.5)));
+                        if (smallTnt != null) {
+                            smallTnt.setVelocity(entity.getLocation().getDirection().multiply(0.5).add(new Vector(Math.random() - 0.5, Math.random() * 0.75, Math.random() - 0.5)));
+                        }
                     }
                 }
             }
@@ -82,9 +85,12 @@ public class SuperTNT implements Listener {
     }
 
     private TNTPrimed spawnTNT(Location location, float yield, int fuseTicks) {
-        TNTPrimed tnt = (TNTPrimed) location.getWorld().spawnEntity(location, EntityType.PRIMED_TNT);
-        tnt.setYield(yield);
-        tnt.setFuseTicks(fuseTicks);
-        return tnt;
+        if (location.getWorld() != null) {
+            TNTPrimed tnt = (TNTPrimed) location.getWorld().spawnEntity(location, EntityType.PRIMED_TNT);
+            tnt.setYield(yield);
+            tnt.setFuseTicks(fuseTicks);
+            return tnt;
+        }
+        return null;
     }
 }

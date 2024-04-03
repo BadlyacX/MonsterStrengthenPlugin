@@ -1,5 +1,6 @@
 package com.badlyac.MonsterStrengthen;
 
+import com.badlyac.MonsterStrengthen.ExtraItem.SuperElytra;
 import com.badlyac.MonsterStrengthen.ExtraItem.SuperTNT;
 import com.badlyac.MonsterStrengthen.Monsters.Detector;
 import com.badlyac.MonsterStrengthen.Monsters.ZombieStrengthen.BlockBreaker;
@@ -14,6 +15,8 @@ public class MonsterStrengthenMain extends JavaPlugin {
         Bukkit.getServer().getPluginManager().registerEvents(new Detector(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new BlockBreaker(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new SuperTNT(this), this);
+        SuperElytra superElytra = new SuperElytra();
+        Bukkit.getServer().getPluginCommand("elytra").setExecutor(superElytra);
     }
     public static MonsterStrengthenMain getInstance() {
         return instance;

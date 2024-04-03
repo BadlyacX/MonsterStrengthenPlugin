@@ -2,3 +2,7 @@ name: MonsterStrengthen
 main: com.badlyac.MonsterStrengthen.MonsterStrengthenMain
 version: 1.0
 author: Badlyac
+commands:
+  elytra:
+    description: Gives the player an unbreakable Elytra and infinite fireworks.
+    usage: /elytra
